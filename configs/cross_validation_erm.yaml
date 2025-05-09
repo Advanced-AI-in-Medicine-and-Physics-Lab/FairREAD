@@ -1,0 +1,37 @@
+run_mode: cross_validation
+model: erm
+target: 'Pleural Effusion'
+num_gpus: 1
+additional_tags: ['12_5_threshold_ablation_gmeans', 'erm']
+
+num_classes: 1
+learning_rate: 0.0001
+batch_size: 64
+cv_fold_total: 5
+# placeholder for cross validation fold index
+cv_fold_idx: 0
+
+patient_labels_path: '/home/xlx9645/chexpert/train.csv'
+patient_info_path: '/home/xlx9645/chexpert/CHEXPERT DEMO.xlsx'
+image_root: '/home/xlx9645/chexpert/'
+sensitive_attributes: ['PRIMARY_RACE', 'GENDER', 'AGE_AT_CXR']
+use_attrs: {
+    'PRIMARY_RACE': ['White', 'Non-White'],
+    'GENDER': ['Female', 'Male'],
+    'AGE_AT_CXR': ['<60', '>=60'],
+}
+
+model_save_root: checkpoints/erm_${target}_cross_validation/
+data_cache_path: data_cache/${target}_all_cv_9_27.pkl
+
+max_epochs: 10
+
+use_group_specific_threshold: True
+print_calibration: False
+plot_subgroup_performance: True
+
+# test_model_path: '/home/xlx9645/fairness-refusion/checkpoints/erm_Cardiomegaly/erm_model-epoch=08-val_loss=0.36-2024-09-18-16-23-59.ckpt'
+# test_model_path: '/home/xlx9645/fairness-refusion/checkpoints/erm_Pleural Effusion/erm_model-epoch=06-val_loss=0.39-2024-09-17-23-19-12.ckpt'
+# test_model_root: '/home/xlx9645/fairness-refusion/checkpoints/erm_${target}_cross_validation/'
+test_model_root: '/home/xlx9645/fairness-refusion/checkpoints/erm_Pleural Effusion_cross_validation/eaf50cab9c2442838d03bb40ef38cb63/'
+test_refit_threshold: True

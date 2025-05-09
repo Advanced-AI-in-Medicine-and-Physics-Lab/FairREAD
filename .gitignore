@@ -1,0 +1,21 @@
+checkpoints/
+lightning_logs/
+wandb/
+*.pth
+__pycache__/
+.vscode/
+*chexpert/
+data/*
+*.jpg
+*.png
+*.pkl
+outputs/
+logs/
+results/
+# data_cache/
+saliency_maps/
+analysis/cav/
+analysis/saliency_maps/
+analysis/data_cache/
+analysis/*results/
+figs/
