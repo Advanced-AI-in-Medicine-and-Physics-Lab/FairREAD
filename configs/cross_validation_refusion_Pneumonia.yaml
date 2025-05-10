@@ -29,7 +29,7 @@ subsample_target: ${target}
 subsample_target_values: [0, 1]
 subsample_target_ratios: [[1, 1], [1, 2]]
 
-d_model_cv_root: './disentangled/results/${target}_all_cv_w_cond/'
+d_model_cv_root: './disentangled/${target}/'
 
 model_save_root: 'checkpoints/refusion_${target}_cross_validation/'
 data_cache_path: 'data_cache/${target}_cv.pkl'

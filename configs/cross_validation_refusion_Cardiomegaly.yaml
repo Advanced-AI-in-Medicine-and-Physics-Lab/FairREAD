@@ -23,7 +23,7 @@ use_attrs: {
     'AGE_AT_CXR': ['<60', '>=60'],
 }
 
-d_model_cv_root: './disentangled/${target}_all_cv_w_cond/'
+d_model_cv_root: './disentangled/${target}/'
 
 model_save_root: 'checkpoints/refusion_${target}_cross_validation/'
 data_cache_path: 'data_cache/${target}_cv.pkl'
