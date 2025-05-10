@@ -36,7 +36,7 @@ If you don't have a wandb account, you can create one [here](https://wandb.ai/si
 
 7. Run the training script:
 ```bash
-python train.py -cd configs -cn "cross_validation_refusion_<pathology>"
+python train.py -cn "cross_validation_fairread_<pathology>"
 ```
 where `<pathology>` is the pathology you want to train the model for. 
 

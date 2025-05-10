@@ -98,7 +98,8 @@ class CheXpertDataset(Dataset):
         return len(self.patient_labels)
     
     def __getitem__(self, idx):
-        image = Image.open(self.patient_labels.iloc[idx]['Path']).convert('RGB')
+        image_path = os.path.join(self.image_root, self.patient_labels.iloc[idx]['Path'])
+        image = Image.open(image_path).convert('RGB')
         if self.transform:
             image = self.transform(image)
         if self.mode == 'sa_prediction':
