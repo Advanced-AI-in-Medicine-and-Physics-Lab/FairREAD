@@ -1,0 +1,42 @@
+run_mode: cross_validation
+model: refusion_cascade_rescale
+target: 'Cardiomegaly'
+num_gpus: 1
+additional_tags: ['refusion']
+
+conv: ['resnet', 8]
+dropout: 0.1
+
+num_classes: 1
+learning_rate: 0.0001
+batch_size: 64
+
+data_root: '/path/to/data/'
+patient_labels_path: '${data_root}/train.csv'
+patient_info_path: '${data_root}/CHEXPERT DEMO.xlsx'
+image_root: '${data_root}/'
+sensitive_attributes: ['PRIMARY_RACE', 'GENDER', 'AGE_AT_CXR']
+use_attrs: {
+    'PRIMARY_RACE': ['White', 'Non-White'],
+    'GENDER': ['Female', 'Male'],
+    'AGE_AT_CXR': ['<60', '>=60'],
+}
+
+d_model_cv_root: './disentangled/${target}_all_cv_w_cond/'
+
+model_save_root: 'checkpoints/refusion_${target}_cross_validation/'
+data_cache_path: 'data_cache/${target}_cv.pkl'
+
+max_epochs: 10
+mean_std_dim: 256
+cv_fold_idx: 0
+cv_fold_total: 5
+sa_encoder: simple
+num_cascade_blocks: 2
+# norm_rescale: True
+adv_alpha: 0.1
+
+use_group_specific_threshold: True
+print_calibration: False
+plot_subgroup_performance: True
+test_refit_threshold: False

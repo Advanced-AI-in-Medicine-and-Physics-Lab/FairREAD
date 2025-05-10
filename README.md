@@ -9,11 +9,42 @@ Recent advancements in deep learning have shown transformative potential in medi
 
 ## Run experiments
 
+1. Clone the repository:
+```bash
+git clone git@github.com:Advanced-AI-in-Medicine-and-Physics-Lab/FairREAD.git
+cd FairREAD
+
+```
+2. Install the required packages:
+```bash
+pip install -r requirements.txt
+```
+
+3. Download the CheXpert dataset, which is used in our experiments. You can find the dataset [here](https://stanfordmlgroup.github.io/competitions/chexpert/). We use a curated version of the dataset, where the serialized dataset objects are available under the `data_cache` directory, and will be loaded automatically. Note that the original images are not included in these serialized files, so you need to download them from the link above. 
+
+4. Modify the config files in the `configs` directory according to your needs. Specifically, please make sure to modify `data_root` to the root of the downloaded CheXpert dataset. The config files include the follows:
+    - `cross_validation_erm.yaml`: Config file for cross-validation with the ERM model (which means the vanilla model without any optimization for fairness).
+   - `cross_validation_refusion_<pathology>.yaml`: Config file for cross-validation with refusion for each pathology, including Cardiomegaly, Pleural Effusion, Pneumonia, and Fracture.
+
+5. Run the training script:
+```bash
+python train.py -cd configs -cn "cross_validation_refusion_<pathology>"
+```
+where `<pathology>` is the pathology you want to train the model for. 
+
 ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENSE) file for details.
 
 ## Citation
 If you find this work useful, please consider citing our paper:
 ```
-
+@misc{gao2024fairread,
+      title={FairREAD: Re-fusing Demographic Attributes after Disentanglement for Fair Medical Image Classification}, 
+      author={Yicheng Gao and Jinkui Hao and Bo Zhou},
+      year={2024},
+      eprint={2412.16373},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2412.16373}, 
+}
 ```
