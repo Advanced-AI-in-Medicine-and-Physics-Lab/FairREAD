@@ -1,7 +1,7 @@
 checkpoints/
 lightning_logs/
 wandb/
-*.pth
+.DS_Store
 __pycache__/
 .vscode/
 *chexpert/
