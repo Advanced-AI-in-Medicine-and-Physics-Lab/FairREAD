@@ -1,6 +1,3 @@
 from models.disentangled_model import DisentangledModel
 from models.erm_model import ERMModel
 from models.refusion_model import RefusionCascadeRescale
-from models.sa_model import SensitiveAttributeModel
-from models.erm_adv_model import ERMAdvModel
-from models.erm_adv18_model import ERMAdv18Model

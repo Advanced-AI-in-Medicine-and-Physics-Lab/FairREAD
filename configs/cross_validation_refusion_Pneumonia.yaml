@@ -1,3 +1,4 @@
+project_name: 'fairread'
 run_mode: cross_validation
 model: refusion_cascade_rescale
 target: 'Pneumonia'

@@ -13,11 +13,11 @@ Recent advancements in deep learning have shown transformative potential in medi
 ```bash
 git clone git@github.com:Advanced-AI-in-Medicine-and-Physics-Lab/FairREAD.git
 cd FairREAD
-
 ```
-2. Install the required packages:
+2. Create a conda environment and install the required packages:
 ```bash
-pip install -r requirements.txt
+conda environment create -f environment.yml
+conda activate fairread
 ```
 
 3. Download the CheXpert dataset, which is used in our experiments. You can find the dataset [here](https://stanfordmlgroup.github.io/competitions/chexpert/). We use a curated version of the dataset, where the serialized dataset objects are available under the `data_cache` directory, and will be loaded automatically. Note that the original images are not included in these serialized files, so you need to download them from the link above. 
@@ -26,7 +26,13 @@ pip install -r requirements.txt
     - `cross_validation_erm.yaml`: Config file for cross-validation with the ERM model (which means the vanilla model without any optimization for fairness).
    - `cross_validation_refusion_<pathology>.yaml`: Config file for cross-validation with refusion for each pathology, including Cardiomegaly, Pleural Effusion, Pneumonia, and Fracture.
 
-5. Run the training script:
+5. This project relies on Weights & Biases (wandb) for logging. Login to your wandb account using the following command:
+```bash
+wandb login
+```
+If you don't have a wandb account, you can create one [here](https://wandb.ai/site).
+
+6. Run the training script:
 ```bash
 python train.py -cd configs -cn "cross_validation_refusion_<pathology>"
 ```

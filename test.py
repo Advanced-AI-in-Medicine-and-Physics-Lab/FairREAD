@@ -19,11 +19,7 @@ MODEL_MAP = {
     'disentangled': DisentangledModel,
     'd': DisentangledModel,
     'erm': ERMModel,
-    'erm_adv': ERMAdvModel,
-    'erm_adv18': ERMAdv18Model,
     'refusion_cascade_rescale': RefusionCascadeRescale,
-    'sensitive_attribute': SensitiveAttributeModel,
-    'sa': SensitiveAttributeModel
 }
 
 def test(cfg):

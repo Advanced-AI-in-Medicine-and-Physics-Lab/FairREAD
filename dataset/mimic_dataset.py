@@ -47,8 +47,7 @@ class MIMICDataset(Dataset):
         # Load the CSV file containing both labels and patient info
         self.init_patient_labels = pd.read_csv(patient_labels_path)
         self.patient_info = pd.read_json(patient_info_path)
-        # self.patient_info_to_fit_threshold = pd.read_json('/home/xlx9645/fair-rrg/data/mimic_cxr/mimic_annotation_promptmrg_w_da_train.json')
-        
+
         self.patient_labels = process_patient_labels(self.init_patient_labels, self.patient_info, image_root, use_attrs, target, sensitive_attributes)
         # self.patient_labels_to_fit_threshold = process_patient_labels(self.init_patient_labels, self.patient_info_to_fit_threshold, image_root, use_attrs, target, sensitive_attributes)
 

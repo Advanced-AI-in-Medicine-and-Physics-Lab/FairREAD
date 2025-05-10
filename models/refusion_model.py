@@ -1,11 +1,9 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from lightning import LightningModule
 from dataset.dataset_utils import age_to_class
 from models.disentangled_model import Network as DisentangledNetwork
 from models.base_model import BaseModel
-from models.sa_model import SensitiveAttributeModel
  
 class CascadeRescaleBlock(nn.Module):
     def __init__(self, in_channels, out_channels, mean_std_dim=None, conv=('resnet', 4), dropout=0.5, norm_rescale=False):
@@ -240,11 +238,3 @@ class RefusionCascadeRescale(BaseModel):
     
     def test_step(self, batch, batch_idx, log_prefix='test'):
         return self.validation_step(batch, batch_idx, log_prefix, fairness_agg_ls=self.test_fairness_agg, print_calibration=True)
-    
-    # def configure_optimizers(self):
-    #     if hasattr(self, 'adv_sa_model') and self.adv_alpha is not None:
-    #         optimizer_main = torch.optim.Adam(self.parameters(), lr=self.learning_rate)
-    #         optimizer_adv = torch.optim.Adam(self.adv_sa_model.parameters(), lr=1e-4)
-    #         return [optimizer_main, optimizer_adv]
-    #     else:
-    #         return super().configure_optimizers()

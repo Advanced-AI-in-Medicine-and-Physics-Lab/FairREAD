@@ -86,9 +86,6 @@ class BaseModel(LightningModule):
 
         if dataset == 'chexpert':
             dataset_obj = CheXpertDataset(patient_labels_path, patient_info_path, image_root=image_root, use_attrs=use_attrs, transform=transform, mode='refusion', target=target, sensitive_attributes=sensitive_attributes)
-            # dataset_obj.patient_labels_path = dataset_obj.patient_labels_path.replace('/data/xlx9645/', '/home/xlx9645/')
-            # dataset_obj.patient_info_path = dataset_obj.patient_info_path.replace('/data/xlx9645/', '/home/xlx9645/')
-            # dataset_obj.patient_labels['Path'] = dataset_obj.patient_labels['Path'].apply(lambda x: x.replace('/data/xlx9645/', '/home/xlx9645/'))
         elif dataset == 'MIMIC':
             dataset_obj = MIMICDataset(patient_labels_path, patient_info_path, image_root=image_root, use_attrs=use_attrs, transform=transform, mode='refusion', target=target, sensitive_attributes=sensitive_attributes)
 

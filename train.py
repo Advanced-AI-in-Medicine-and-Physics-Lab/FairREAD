@@ -20,11 +20,7 @@ MODEL_MAP = {
     'disentangled': DisentangledModel,
     'd': DisentangledModel,
     'erm': ERMModel,
-    'erm_adv': ERMAdvModel,
-    'erm_adv18': ERMAdv18Model,
     'refusion_cascade_rescale': RefusionCascadeRescale,
-    'sensitive_attribute': SensitiveAttributeModel,
-    'sa': SensitiveAttributeModel
 }
 
 def train(cfg):
@@ -44,7 +40,8 @@ def train(cfg):
     
     time = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
     checkpoint_callback = ModelCheckpoint(monitor='val_loss', dirpath=cfg.model_save_path, filename=cfg.model+'_model-{epoch:02d}-{val_loss:.2f}-'+time, save_top_k=1, mode='min', verbose=True)
-    logger = WandbLogger(project='fairness-medai', tags=[cfg.model, cfg.target, cfg.run_mode, *cfg.additional_tags], config=OmegaConf.to_container(cfg, resolve=True))
+    project_name = cfg.project_name if 'project_name' in cfg else 'fairness-medai'
+    logger = WandbLogger(project=project_name, tags=[cfg.model, cfg.target, cfg.run_mode, *cfg.additional_tags], config=OmegaConf.to_container(cfg, resolve=True))
     early_stop_callback = EarlyStopping(monitor='val_loss', patience=3, mode='min')
     trainer = Trainer(max_epochs=cfg.max_epochs, logger=logger, callbacks=[checkpoint_callback, early_stop_callback], devices=cfg.num_gpus)
     
@@ -88,10 +85,6 @@ def cross_validation(cfg):
 
 @hydra.main(config_path='configs/', version_base=None)
 def main(cfg):
-    # if 'run_mode' in cfg and cfg.run_mode == 'sweep':
-    #     hydra.initialize(config_path='configs/')
-    #     cfg = hydra.compose(config_name='sweep_refusion')
-    #     train(cfg)
     if 'run_mode' in cfg and cfg.run_mode == 'cross_validation':
         cross_validation(cfg)
     else:

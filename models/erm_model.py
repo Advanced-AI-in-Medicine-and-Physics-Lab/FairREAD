@@ -54,8 +54,3 @@ class ERMModel(BaseModel):
             return torch.sigmoid(out), fea
         return torch.sigmoid(self.model(images))
         
-if __name__ == '__main__':
-    model = ERMModel.load_from_checkpoint('checkpoints/erm/refusion_model-epoch=05-val_loss=0.51.ckpt', num_classes=1, pretrained=True)
-    checkpoint_callback = ModelCheckpoint(monitor='val_loss', dirpath='checkpoints/erm/', filename='refusion_model-{epoch:02d}-{val_loss:.2f}', save_top_k=3, mode='min')
-    trainer = Trainer(max_epochs=10, strategy='ddp_find_unused_parameters_true')
-    trainer.test(model)

@@ -91,17 +91,3 @@ class DisentangledModel(BaseModel):
             return torch.sigmoid(out), fea
         return torch.sigmoid(self.model(x))
 
-if __name__ == '__main__':
-    model = DisentangledModel(num_classes=1, 
-                              use_attrs={
-                                    'PRIMARY_RACE': ['White', 'Asian'],
-                                    'GENDER': ['Female', 'Male'],
-                                },
-                                subsample_attr='PRIMARY_RACE',
-                                subsample_values=['White', 'Asian'],
-                                subsample_ratios=[1, 0.2],
-                                train_split=0.8,
-                                pretrained=True)
-    trainer = Trainer(max_epochs=50, strategy='ddp_find_unused_parameters_true')
-    trainer.test(model)
-    trainer.save_checkpoint('checkpoints/disentangled/disentangled_cardiomegaly.ckpt')
